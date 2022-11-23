@@ -3,6 +3,7 @@ package controller;
 import dto.mapper.StudentMapper;
 import dto.request.StudentRequestDto;
 import dto.response.StudentResponseDto;
+import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
@@ -29,12 +30,14 @@ public class StudentController {
     private final SortUtil sortUtil;
 
     @PostMapping
+    @ApiOperation(value = "Create a new Student")
     public StudentResponseDto create(@RequestBody StudentRequestDto requestDto) {
         Student student = studentService.save(studentMapper.mapToModel(requestDto));
         return studentMapper.mapToDto(student);
     }
 
     @GetMapping
+    @ApiOperation(value = "Get student by firstName and lastName")
     public StudentResponseDto getByFirstNameAndLastName(@RequestParam String firstName,
                                                         @RequestParam String lastName) {
         Student student = studentService.getByFirstNameAndLastName(firstName, lastName);
@@ -42,11 +45,13 @@ public class StudentController {
     }
 
     @DeleteMapping("/{id}")
+    @ApiOperation(value = "Delete student by id")
     void deleteById(@PathVariable Long id) {
         studentService.deleteById(id);
     }
 
     @PutMapping("/{id}")
+    @ApiOperation(value = "Update student by id")
     public StudentResponseDto updateById(@PathVariable Long id,
                                          @RequestBody StudentRequestDto requestDto) {
         Student student = studentMapper.mapToModel(requestDto);
@@ -55,6 +60,7 @@ public class StudentController {
     }
 
     @GetMapping
+    @ApiOperation(value = "Find all students with pagination and sort")
     public List<StudentResponseDto> getAll(@RequestParam(defaultValue = "20") Integer count,
                                 @RequestParam(defaultValue = "0") Integer page,
                                 @RequestParam(defaultValue = "firstName") String sortBy) {
@@ -66,6 +72,7 @@ public class StudentController {
     }
 
     @GetMapping
+    @ApiOperation(value = "Find all student by teacherId with pagination and sort")
     public List<StudentResponseDto> getAllByTeacherId(@RequestParam(defaultValue = "20") Integer count,
                                                     @RequestParam(defaultValue = "0") Integer page,
                                                     @RequestParam(defaultValue = "firstName") String sortBy,
@@ -78,6 +85,7 @@ public class StudentController {
     }
 
     @PutMapping("/{id}/attach/teacher")
+    @ApiOperation(value = "Attach teacher to student")
     void attachTeacherToStudent(@PathVariable Long id,
                                 @RequestParam Long teacherId) {
         studentService.attachTeacherToStudent(id, teacherId);
