@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import model.Student;
 import model.Teacher;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import repository.StudentRepository;
 import repository.TeacherRepository;
@@ -37,9 +38,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getAllByTeacherId(Long teacherId) {
+    public List<Student> getAllByTeacherId(Long teacherId, Pageable pageable) {
         return studentRepository.findAllByTeacher(teacherRepository.findById(teacherId).orElseThrow(() ->
-                new RuntimeException("No such teacher with id -> " + teacherId)));
+                new RuntimeException("No such teacher with id -> " + teacherId)), pageable);
     }
 
     @Override

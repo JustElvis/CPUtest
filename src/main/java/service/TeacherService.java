@@ -1,7 +1,6 @@
 package service;
 
 import java.util.List;
-import model.Student;
 import model.Teacher;
 import org.springframework.data.domain.PageRequest;
 
