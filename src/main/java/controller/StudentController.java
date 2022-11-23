@@ -66,7 +66,7 @@ public class StudentController {
     }
 
     @GetMapping
-    public List<StudentResponseDto> getAllByTeacher(@RequestParam(defaultValue = "20") Integer count,
+    public List<StudentResponseDto> getAllByTeacherId(@RequestParam(defaultValue = "20") Integer count,
                                                     @RequestParam(defaultValue = "0") Integer page,
                                                     @RequestParam(defaultValue = "firstName") String sortBy,
                                                     @RequestParam Long teacherId) {
@@ -77,7 +77,7 @@ public class StudentController {
                 .collect(Collectors.toList());
     }
 
-    @PostMapping("/{id}/attach/teacher")
+    @PutMapping("/{id}/attach/teacher")
     void attachTeacherToStudent(@PathVariable Long id,
                                 @RequestParam Long teacherId) {
         studentService.attachTeacherToStudent(id, teacherId);

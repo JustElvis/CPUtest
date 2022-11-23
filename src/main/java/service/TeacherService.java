@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 import model.Teacher;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 public interface TeacherService {
     Teacher save(Teacher teacher);

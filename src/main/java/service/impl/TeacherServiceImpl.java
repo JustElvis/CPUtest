@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import model.Student;
 import model.Teacher;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import repository.StudentRepository;
 import repository.TeacherRepository;
