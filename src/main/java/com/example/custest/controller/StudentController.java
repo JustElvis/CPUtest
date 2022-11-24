@@ -91,4 +91,11 @@ public class StudentController {
                                 @RequestParam Long teacherId) {
         studentService.attachTeacherToStudent(id, teacherId);
     }
+
+    @PutMapping("/{id}/remove/teacher")
+    @ApiOperation(value = "Remove teacher from student")
+    void removeTeacherFromStudent(@PathVariable Long id,
+                                  @RequestParam Long teacherId) {
+        studentService.removeTeacherFromStudent(id, teacherId);
+    }
 }

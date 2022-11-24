@@ -86,10 +86,17 @@ public class TeacherController {
                 .collect(Collectors.toList());
     }
 
-    @PostMapping("/{id}/attach/student")
+    @PutMapping("/{id}/attach/student")
     @ApiOperation(value = "Attach student to teacher")
     void attachStudentToTeacher(@PathVariable Long id,
                                 @RequestParam Long studentId) {
         teacherService.attachStudentToTeacher(studentId, id);
+    }
+
+    @PutMapping("/{id}/remove/student")
+    @ApiOperation(value = "Remove student from teacher")
+    void  removeStudentFromTeacher(@PathVariable Long id,
+                                   @RequestParam Long studentId) {
+        teacherService.removeStudentFromTeacher(studentId, id);
     }
 }

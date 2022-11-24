@@ -17,4 +17,6 @@ public interface TeacherService {
     List<Teacher> getAllByStudentId(Long studentId, Pageable pageable);
 
     void attachStudentToTeacher(Long studentId, Long teacherId);
+
+    void removeStudentFromTeacher(Long studentId, Long teacherId);
 }

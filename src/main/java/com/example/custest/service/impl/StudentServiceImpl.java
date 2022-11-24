@@ -53,4 +53,14 @@ public class StudentServiceImpl implements StudentService {
         student.getTeachers().add(teacher);
         studentRepository.save(student);
     }
+
+    @Override
+    public void removeTeacherFromStudent(Long studentId, Long teacherId) {
+        Student student = studentRepository.findById(studentId).orElseThrow(() ->
+                new RuntimeException("No such student with id -> " + studentId));
+        Teacher teacher = teacherRepository.findById(teacherId).orElseThrow(() ->
+                new RuntimeException("No such teacher with id -> " + teacherId));
+        student.getTeachers().remove(teacher);
+        studentRepository.save(student);
+    }
 }
