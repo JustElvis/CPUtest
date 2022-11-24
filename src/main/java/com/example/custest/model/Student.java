@@ -1,4 +1,4 @@
-package model;
+package com.example.custest.model;
 
 import java.util.List;
 import javax.persistence.Entity;
@@ -35,8 +35,8 @@ public class Student {
     private String speciality;
     @ManyToMany
     @JoinTable(name = "students_teachers",
-        joinColumns = @JoinColumn(name = "student_id"),
-        inverseJoinColumns = @JoinColumn(name = "teacher_id"))
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "teacher_id"))
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<Teacher> teachers;

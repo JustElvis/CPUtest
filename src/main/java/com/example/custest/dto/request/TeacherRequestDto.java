@@ -1,5 +1,6 @@
-package dto.request;
+package com.example.custest.dto.request;
 
+import java.util.List;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
@@ -18,4 +19,5 @@ public class TeacherRequestDto {
     private String subject;
     @Email
     private String email;
+    private List<Long> studentsIds;
 }

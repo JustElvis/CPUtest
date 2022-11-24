@@ -1,15 +1,15 @@
-package service.impl;
+package com.example.custest.service.impl;
 
+import com.example.custest.model.Student;
+import com.example.custest.model.Teacher;
+import com.example.custest.repository.StudentRepository;
+import com.example.custest.repository.TeacherRepository;
+import com.example.custest.service.StudentService;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import model.Student;
-import model.Teacher;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import repository.StudentRepository;
-import repository.TeacherRepository;
-import service.StudentService;
 
 @Service
 @AllArgsConstructor
@@ -39,8 +39,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> getAllByTeacherId(Long teacherId, Pageable pageable) {
-        return studentRepository.findAllByTeacher(teacherRepository.findById(teacherId).orElseThrow(() ->
-                new RuntimeException("No such teacher with id -> " + teacherId)), pageable);
+        return studentRepository.findAllByTeachersContains(teacherRepository.findById(teacherId)
+                .orElseThrow(() -> new RuntimeException("No such teacher with id -> "
+                        + teacherId)), pageable);
     }
 
     @Override

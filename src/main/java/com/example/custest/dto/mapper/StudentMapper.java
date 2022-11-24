@@ -1,14 +1,13 @@
-package dto.mapper;
+package com.example.custest.dto.mapper;
 
-import dto.request.StudentRequestDto;
-import dto.response.StudentResponseDto;
+import com.example.custest.dto.request.StudentRequestDto;
+import com.example.custest.dto.response.StudentResponseDto;
+import com.example.custest.model.Student;
+import com.example.custest.model.Teacher;
+import com.example.custest.repository.TeacherRepository;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
-import model.Student;
-import model.Teacher;
 import org.springframework.stereotype.Component;
-import repository.StudentRepository;
-import repository.TeacherRepository;
 
 @Component
 @AllArgsConstructor

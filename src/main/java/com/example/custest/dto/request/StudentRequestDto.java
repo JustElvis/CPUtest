@@ -1,4 +1,4 @@
-package dto.request;
+package com.example.custest.dto.request;
 
 import java.util.List;
 import javax.validation.constraints.Email;

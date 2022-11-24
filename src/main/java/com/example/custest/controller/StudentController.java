@@ -1,13 +1,15 @@
-package controller;
+package com.example.custest.controller;
 
-import dto.mapper.StudentMapper;
-import dto.request.StudentRequestDto;
-import dto.response.StudentResponseDto;
+import com.example.custest.dto.mapper.StudentMapper;
+import com.example.custest.dto.request.StudentRequestDto;
+import com.example.custest.dto.response.StudentResponseDto;
+import com.example.custest.model.Student;
+import com.example.custest.service.StudentService;
+import com.example.custest.util.SortUtil;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
-import model.Student;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import service.StudentService;
-import util.SortUtil;
 
 @RestController
 @AllArgsConstructor
@@ -36,7 +36,7 @@ public class StudentController {
         return studentMapper.mapToDto(student);
     }
 
-    @GetMapping
+    @GetMapping("/name")
     @ApiOperation(value = "Get student by firstName and lastName")
     public StudentResponseDto getByFirstNameAndLastName(@RequestParam String firstName,
                                                         @RequestParam String lastName) {
@@ -71,12 +71,13 @@ public class StudentController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping
+    @GetMapping("/teacher")
     @ApiOperation(value = "Find all student by teacherId with pagination and sort")
-    public List<StudentResponseDto> getAllByTeacherId(@RequestParam(defaultValue = "20") Integer count,
-                                                    @RequestParam(defaultValue = "0") Integer page,
-                                                    @RequestParam(defaultValue = "firstName") String sortBy,
-                                                    @RequestParam Long teacherId) {
+    public List<StudentResponseDto> getAllByTeacherId(
+            @RequestParam(defaultValue = "20") Integer count,
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "firstName") String sortBy,
+            @RequestParam Long teacherId) {
         PageRequest pageRequest = PageRequest.of(page, count, sortUtil.getSort(sortBy));
         return studentService.getAllByTeacherId(teacherId, pageRequest)
                 .stream()

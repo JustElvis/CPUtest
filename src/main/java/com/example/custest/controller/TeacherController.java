@@ -1,13 +1,15 @@
-package controller;
+package com.example.custest.controller;
 
-import dto.mapper.TeacherMapper;
-import dto.request.TeacherRequestDto;
-import dto.response.TeacherResponseDto;
+import com.example.custest.dto.mapper.TeacherMapper;
+import com.example.custest.dto.request.TeacherRequestDto;
+import com.example.custest.dto.response.TeacherResponseDto;
+import com.example.custest.model.Teacher;
+import com.example.custest.service.TeacherService;
+import com.example.custest.util.SortUtil;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
-import model.Teacher;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import service.TeacherService;
-import util.SortUtil;
 
 @RestController
 @AllArgsConstructor
@@ -36,7 +36,7 @@ public class TeacherController {
         return teacherMapper.mapToDto(teacherService.save(teacher));
     }
 
-    @GetMapping
+    @GetMapping("/name")
     @ApiOperation(value = "Get teacher by firstName and lastName")
     public TeacherResponseDto getByFirstNameAndLastName(@RequestParam String firstName,
                                                         @RequestParam String lastName) {
@@ -61,9 +61,10 @@ public class TeacherController {
 
     @GetMapping
     @ApiOperation(value = "Find all teachers with pagination and sort")
-    public List<TeacherResponseDto> getAll(@RequestParam(defaultValue = "20") Integer count,
-                                           @RequestParam(defaultValue = "0") Integer page,
-                                           @RequestParam(defaultValue = "firstName") String sortBy) {
+    public List<TeacherResponseDto> getAll(
+            @RequestParam(defaultValue = "20") Integer count,
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "firstName") String sortBy) {
         PageRequest pageRequest = PageRequest.of(page, count, sortUtil.getSort(sortBy));
         return teacherService.getAll(pageRequest)
                 .stream()
@@ -71,10 +72,15 @@ public class TeacherController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping
-    @ApiOperation(value = "Find all teacher by studentId")
-    public List<TeacherResponseDto> getAllByStudentId(@RequestParam Long studentId) {
-        return teacherService.getAllByStudentId(studentId)
+    @GetMapping("/student")
+    @ApiOperation(value = "Find all teacher by studentId with pagination and sort")
+    public List<TeacherResponseDto> getAllByStudentId(
+            @RequestParam(defaultValue = "20") Integer count,
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "firstName") String sortBy,
+            @RequestParam Long studentId) {
+        PageRequest pageRequest = PageRequest.of(page, count, sortUtil.getSort(sortBy));
+        return teacherService.getAllByStudentId(studentId, pageRequest)
                 .stream()
                 .map(teacherMapper::mapToDto)
                 .collect(Collectors.toList());
